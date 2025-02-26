@@ -52,22 +52,14 @@
                 setCards(cards.filter((_, index) => index !== randomCardIndex))
             }
 
-            function dealCards(cardsDealt) {
-                reset()
-            }
-
             function reset() {
-                console.log(drawn.length)
-                let temp = []
-                for (let i = 0; i < drawn.length; i++) {
-                    console.log(drawn[i])
-                    temp.push(drawn[i])
-                    // setCards([...cards, drawn[i]])
-                }
-
-                setCards([...cards, temp])
+                setCards(cards.concat(drawn))
 
                 setDrawn([])
+            }
+
+            function dealCards(cardsDealt) {
+                reset()
             }
 
             function viewCards() {
@@ -78,7 +70,7 @@
                 <div>
                     <button onClick={drawRandomCard}>draw</button>
                     <button onClick={() => dealCards(0)}>dealCards</button>
-                    <button onClick={reset}>View Cards</button>
+                    <button onClick={reset}>reset</button>
                     <button onClick={viewCards}>View Cards</button>
                 </div>
             )
