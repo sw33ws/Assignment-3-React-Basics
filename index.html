@@ -52,6 +52,16 @@
                 setCards(cards.filter((_, index) => index !== randomCardIndex))
             }
 
+            function viewCards() {
+                console.log(cards);
+            }
+
+            return(
+                <div>
+                    <button onClick={drawRandomCard}>draw</button>
+                    <button onClick={viewCards}>View Cards</button>
+                </div>
+            )
         }
 
         const container = document.getElementById('root');
