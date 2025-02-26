@@ -16,6 +16,12 @@
         function App() {
 
             function CreateCard(suitNum, cardNum) {
+                /*
+                    This function creates and returns a card string, that contains the data each card will use when being displayed
+                    The function takes in two parameters
+                    The first parameter is for the suit, 0 for hearts, 1 for diamond, 2 for cube, 3 for spade
+                    The second parameter is for the values, 0 for ace, and counting up too 12 for the king
+                */
                const suit = ["&hearts", "&diams", "&spades", "&clubs"]
                const value = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
