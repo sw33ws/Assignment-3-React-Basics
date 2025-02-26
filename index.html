@@ -38,6 +38,20 @@
                 }
             }
 
+            const[cards, setCards] = React.useState(standardDeck);
+            const[drawn, setDrawn] = React.useState([]);
+
+            function drawRandomCard() {
+                if (cards.length === 0) return;
+
+                const randomCardIndex = Math.floor(Math.random() * cards.length)
+
+                const newCard = cards[randomCardIndex]
+
+                setDrawn([...drawn, newCard])
+                setCards(cards.filter((_, index) => index !== randomCardIndex))
+            }
+
         }
 
         const container = document.getElementById('root');
