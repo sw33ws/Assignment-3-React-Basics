@@ -53,10 +53,8 @@
             }
 
             function dealCards(cardsDealt) {
-                let returnedCardIndex = cards.length + 1;
-                for (let i = 0; i < 1; i++) {
-                    setCards(cards[returnedCardIndex] = drawn[i])
-                    returnedCardIndex++;
+                for (let i = 0; i < drawn.length; i++) {
+                    setCards([...cards, drawn[i]])
                 }
 
                 setDrawn([])
@@ -69,7 +67,7 @@
             return(
                 <div>
                     <button onClick={drawRandomCard}>draw</button>
-                    <button onClick={dealCards(0)}>dealCards</button>
+                    <button onClick={() => dealCards(0)}>dealCards</button>
                     <button onClick={viewCards}>View Cards</button>
                 </div>
             )
