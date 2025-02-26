@@ -52,6 +52,14 @@
                 setCards(cards.filter((_, index) => index !== randomCardIndex))
             }
 
+            function dealCards(cardsDealt) {
+                for (let i = 0; i < 1; i++) {
+                    setCards(cards.push(drawn[i]))
+                }
+
+                setDrawn([])
+            }
+
             function viewCards() {
                 console.log(cards);
             }
@@ -59,6 +67,7 @@
             return(
                 <div>
                     <button onClick={drawRandomCard}>draw</button>
+                    <button onClick={dealCards(0)}>dealCards</button>
                     <button onClick={viewCards}>View Cards</button>
                 </div>
             )
