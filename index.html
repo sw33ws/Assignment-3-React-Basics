@@ -29,6 +29,14 @@
                return output;
             }
 
+            const standardDeck = []
+
+            // adding the 52 required cards to the standardDeck
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 13; j++) {
+                    standardDeck.push(CreateCard(i, j))
+                }
+            }
 
         }
 
