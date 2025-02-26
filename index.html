@@ -53,8 +53,10 @@
             }
 
             function dealCards(cardsDealt) {
+                let returnedCardIndex = cards.length + 1;
                 for (let i = 0; i < 1; i++) {
-                    setCards(cards.push(drawn[i]))
+                    setCards(cards[returnedCardIndex] = drawn[i])
+                    returnedCardIndex++;
                 }
 
                 setDrawn([])
