@@ -62,7 +62,14 @@
                 // reset()
 
                 for (let i = 0; i < cardsDealt; i++) {
-                    drawRandomCard()
+                    if (cards.length === 0) return;
+
+                    const randomCardIndex = Math.floor(Math.random() * cards.length)
+
+                    const newCard = cards[randomCardIndex]
+
+                    setDrawn(drawn => [...drawn, newCard])
+                    setCards(cards => cards.filter((_, index) => index !== randomCardIndex))
                 }
             }
 
@@ -82,8 +89,9 @@
 
             return(
                 <div>
-                    <button onClick={drawRandomCard}>draw</button>
-                    <button onClick={() => dealCards(5)}>Deal cards</button>
+                    <button onClick={drawRandomCard}>draw 1 card</button>
+                    <button onClick={() => dealCards(5)}>Deal 5 cards</button>
+                    <button onClick={() => dealCards(7)}>Deal 7 cards</button>
                     <button onClick={reset}>Reset</button>
                     <button onClick={Regroup}>Regroup</button>
                     <button onClick={addWildCard}>wildcard</button>
