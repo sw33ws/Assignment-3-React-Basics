@@ -100,28 +100,34 @@
 
             function handleCardSelection(cardId) {
                 let newDrawn = [...drawn];
+                let clickedCardIndex;
+                let switched = false;
+
+                // first get the index of card that has been clicked
+                for (let i = 0; i < newDrawn.length; i++) {
+                    if (newDrawn[i].id == cardId) {
+                        clickedCardIndex = i;
+                    }
+                }
 
                 // checking if any card has been selected before, and that you aren't trying to unselect a card
                 for (let i = 0; i < newDrawn.length; i++) {
                     if (newDrawn[i].status == "selected" && newDrawn[i].id != cardId) {
-                        // unselect them in advance
+                        // unselect the card in advance
                         newDrawn[i].status = "unselected"
-                        console.log(newDrawn[cardId])
-                        newDrawn[cardId].status = "unselected"
 
                         let x = newDrawn[i];
-                        newDrawn[i] = newDrawn[cardId]
-                        newDrawn[cardId] = x;
+                        newDrawn[i] = newDrawn[clickedCardIndex]
+                        newDrawn[clickedCardIndex] = x;
+                        switched = true;
                     }
                 }
 
-                for (let i = 0; i < newDrawn.length; i++) {
-                    if (newDrawn[i].id == cardId) {
-                        if (newDrawn[i].status == "unselected") {
-                            newDrawn[i].status = "selected"
-                        } else {
-                            newDrawn[i].status = "unselected"
-                        }
+                if (switched == false) {
+                    if (newDrawn[clickedCardIndex].status == "unselected") {
+                        newDrawn[clickedCardIndex].status = "selected"
+                    } else {
+                        newDrawn[clickedCardIndex].status = "unselected"
                     }
                 }
 
