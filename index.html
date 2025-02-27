@@ -13,6 +13,14 @@
     <div id="root"></div>
     <script type="text/babel">
 
+        function Card(props) {
+            return(
+                <div>
+                    {props.data}
+                </div>
+            )
+        }
+
         function App() {
 
             function CreateCard(suitNum, cardNum) {
@@ -55,9 +63,11 @@
                 for (let i = 0; i < cardsDealt; i++) {
                     if (cards.length === 0) return;
 
-                    const randomCardIndex = Math.floor(Math.random() * cards.length)
+                    let randomCardIndex = Math.floor(Math.random() * cards.length)
 
-                    const newCard = cards[randomCardIndex]
+                    // let newCard = cards[randomCardIndex]
+
+                    let newCard = {data: cards[randomCardIndex]}
 
                     setDrawn(drawn => [...drawn, newCard])
                     setCards(cards => cards.filter((_, index) => index !== randomCardIndex))
@@ -103,8 +113,10 @@
                     </div>
 
                     <div className = "cards">
-                        {drawn.map((card,index) => (
-                            <div key="{index}">{card}</div>
+                        {drawn.map((card) => (
+                            <Card key={index}
+                            data={card.data}>
+                            </Card>
                         ))}
                     </div>
                 </div>
