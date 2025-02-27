@@ -37,18 +37,24 @@
                return output;
             }
 
-            const standardDeck = []
+            const[cards, setCards] = React.useState([]);
+            const[drawn, setDrawn] = React.useState([]);
+            
+            const[populated, setPopulated] = React.useState(false);
 
-            // adding the 52 required cards to the standardDeck
-            for (let i = 0; i < 4; i++) {
-                for (let j = 0; j < 13; j++) {
-                    standardDeck.push(CreateCard(i, j))
+            function populateCards() {
+                for (let i = 0; i < 4; i++) {
+                    for (let j = 0; j < 13; j++) {
+                        let card = {data: CreateCard(i, j)}
+                        setCards(cards => [...cards, card])
+                    }
                 }
             }
 
-            const[cards, setCards] = React.useState(standardDeck);
-            const[drawn, setDrawn] = React.useState([]);
-            const[lastId, setLastId] = React.useState(0);
+            if (populated === false) {
+                populateCards();
+                setPopulated(true);
+            }
 
             function reset() {
                 setCards(cards.concat(drawn))
@@ -66,11 +72,11 @@
 
                     let randomCardIndex = Math.floor(Math.random() * cards.length)
 
-                    let newCard = {data: cards[randomCardIndex], id: lastId}
+                    let newCard = cards[randomCardIndex]
+                    // let newCard = {data: cards[randomCardIndex]}
 
                     setDrawn(drawn => [...drawn, newCard])
                     setCards(cards => cards.filter((_, index) => index !== randomCardIndex))
-                    setLastId(lastId => lastId + 1)
                 }
             }
 
@@ -110,11 +116,12 @@
                         <button onClick={Regroup}>Regroup</button>
                         <button onClick={addWildCard}>wildcard</button>
                         <button onClick={viewCards}>View Cards</button>
+                        <button onClick={populateCards}>test</button>
                     </div>
 
                     <div className = "cards">
-                        {drawn.map((card) => (
-                            <Card key={card.id}
+                        {drawn.map((card, index) => (
+                            <Card key={index}
                             data={card.data}>
                             </Card>
                         ))}
