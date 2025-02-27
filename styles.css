@@ -68,7 +68,8 @@
 }
 
 .selected {
-    border: solid blue 2px;
+    border: solid blue 4px;
+    background-color: bisque;
 }
 
 /* Other */

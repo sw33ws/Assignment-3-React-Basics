@@ -18,10 +18,10 @@
             return(
                 <div>
                     {props.data.charAt(props.data.length - 1) == "♥" | props.data.charAt(props.data.length - 1) == "♦" ? 
-                    <div className="card red" onClick={props.selectCard}>
+                    <div className={`card red ${props.status}`} onClick={props.selectCard}>
                         {props.data}
                     </div> : 
-                    <div className="card black" onClick={props.selectCard}>
+                    <div className={`card black ${props.status}`} onClick={props.selectCard}>
                         {props.data}
                     </div>}
                     
@@ -54,7 +54,7 @@
                 let tempId = 0
                 for (let i = 0; i < 4; i++) {
                     for (let j = 0; j < 13; j++) {
-                        let card = {data: CreateCard(i, j), id: tempId}
+                        let card = {data: CreateCard(i, j), id: tempId, status: "unselected"}
                         setCards(cards => [...cards, card])
                         tempId++;
                     }
@@ -99,14 +99,20 @@
             }
 
             function selectCard(cardId) {
-                let copyDrawn = [...drawn];
+                let newDrawn = [...drawn];
                 console.log(cardId)
 
-                for (let i = 0; i < copyDrawn.length; i++) {
-                    if (copyDrawn[i].id == cardId) {
-                        console.log("clicked")
+                for (let i = 0; i < newDrawn.length; i++) {
+                    if (newDrawn[i].id == cardId) {
+                        if (newDrawn[i].status == "unselected") {
+                            newDrawn[i].status = "selected"
+                        } else {
+                            newDrawn[i].status = "unselected"
+                        }
                     }
                 }
+
+                setDrawn(newDrawn)
             }
 
             function tossCard() {
@@ -141,7 +147,8 @@
                         {drawn.map((card, index) => (
                             <Card key={index}
                             data={card.data}
-                            selectCard={() => selectCard(card.id)}>
+                            selectCard={() => selectCard(card.id)}
+                            status={card.status}>
                             </Card>
                         ))}
                     </div>
