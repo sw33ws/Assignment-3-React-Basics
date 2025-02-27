@@ -22,7 +22,7 @@
                     The first parameter is for the suit, 0 for hearts, 1 for diamond, 2 for cube, 3 for spade
                     The second parameter is for the values, 0 for ace, and counting up too 12 for the king
                 */
-               const suit = ["&hearts;", "&diams;", "&spades;", "&clubs;"]
+               const suit = ["♥", "♦", "♠", "♣"]
                const value = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
                let output = value[cardNum] + suit[suitNum]
@@ -85,9 +85,9 @@
                         {cards.length > 0 ? 
                             <div className = "overturnedCardsHolder">
                                 <div className="overturnedCards">A&hearts;</div>
-                                <div className="overturnedCards">2&hearts;</div>
-                                <div className="overturnedCards">3&hearts;</div>
-                                <div className="overturnedCards">4&hearts;</div>
+                                <div className="overturnedCards">2&diams;</div>
+                                <div className="overturnedCards">3&spades;</div>
+                                <div className="overturnedCards">4&clubs;</div>
                                 <div className="overturnedCards">5&hearts;</div>
                             </div>: "No cards left"
                         }
@@ -103,7 +103,9 @@
                     </div>
 
                     <div className = "cards">
-
+                        {drawn.map((card,index) => (
+                            <div key="{index}">{card}</div>
+                        ))}
                     </div>
                 </div>
             )
