@@ -16,7 +16,7 @@
         function Card(props) {
             return(
                 <div>
-                    {props.data}
+                    {props.data.charAt(props.data.length - 1) == "♥" | props.data.charAt(props.data.length - 1) == "♦" ? <div className="card red">{props.data}</div> : <div className="card back">{props.data}</div>}
                 </div>
             )
         }
@@ -73,7 +73,6 @@
                     let randomCardIndex = Math.floor(Math.random() * cards.length)
 
                     let newCard = cards[randomCardIndex]
-                    // let newCard = {data: cards[randomCardIndex]}
 
                     setDrawn(drawn => [...drawn, newCard])
                     setCards(cards => cards.filter((_, index) => index !== randomCardIndex))
@@ -85,8 +84,7 @@
             }
 
             function addWildCard() {
-                // broken
-                const randomWildCard = standardDeck[Math.floor(Math.random() * standardDeck.length)]
+                const randomWildCard = cards[Math.floor(Math.random() * cards.length)]
                 setDrawn([...drawn, randomWildCard])
             }
 
