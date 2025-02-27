@@ -41,17 +41,6 @@
             const[cards, setCards] = React.useState(standardDeck);
             const[drawn, setDrawn] = React.useState([]);
 
-            function drawRandomCard() {
-                if (cards.length === 0) return;
-
-                const randomCardIndex = Math.floor(Math.random() * cards.length)
-
-                const newCard = cards[randomCardIndex]
-
-                setDrawn([...drawn, newCard])
-                setCards(cards.filter((_, index) => index !== randomCardIndex))
-            }
-
             function reset() {
                 setCards(cards.concat(drawn))
 
@@ -89,7 +78,7 @@
 
             return(
                 <div>
-                    <button onClick={drawRandomCard}>draw 1 card</button>
+                    <button onClick={() => dealCards(1)}>draw 1 card</button>
                     <button onClick={() => dealCards(5)}>Deal 5 cards</button>
                     <button onClick={() => dealCards(7)}>Deal 7 cards</button>
                     <button onClick={reset}>Reset</button>
