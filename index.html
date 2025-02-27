@@ -74,20 +74,28 @@
             }
 
             function dealCards(cardsDealt, refresh) {
+                let newDeck;
+                let toBeDrawn;
                 if (refresh === true) {
-                    reset()
+                    newDeck = cards.concat(drawn);
+                    toBeDrawn = []
+                } else {
+                    newDeck = cards;
+                    toBeDrawn = [].concat(drawn);
                 }
 
                 for (let i = 0; i < cardsDealt; i++) {
-                    if (cards.length === 0) return;
+                    if (newDeck.length === 0) return;
 
-                    let randomCardIndex = Math.floor(Math.random() * cards.length)
+                    let randomCardIndex = Math.floor(Math.random() * newDeck.length)
 
-                    let newCard = cards[randomCardIndex]
-
-                    setDrawn(drawn => [...drawn, newCard])
-                    setCards(cards => cards.filter((_, index) => index !== randomCardIndex))
+                    let newCard = newDeck[randomCardIndex]
+                    toBeDrawn.push(newCard);
+                    newDeck.splice(randomCardIndex, 1)
                 }
+
+                setDrawn(toBeDrawn)
+                setCards(newDeck)
             }
 
             function Regroup() {
