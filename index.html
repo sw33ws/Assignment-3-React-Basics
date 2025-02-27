@@ -82,6 +82,7 @@
 
                     let randomCardIndex = Math.floor(Math.random() * cards.length)
 
+                    // random card index is not updating, causing cards to not be filtered properly
                     let newCard = cards[randomCardIndex]
 
                     setDrawn(drawn => [...drawn, newCard])
