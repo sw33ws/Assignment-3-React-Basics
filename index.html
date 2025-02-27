@@ -18,10 +18,10 @@
             return(
                 <div>
                     {props.data.charAt(props.data.length - 1) == "♥" | props.data.charAt(props.data.length - 1) == "♦" ? 
-                    <div className={`card red ${props.status}`} onClick={props.selectCard}>
+                    <div className={`card red ${props.status}`} onClick={props.handleCardSelection}>
                         {props.data}
                     </div> : 
-                    <div className={`card black ${props.status}`} onClick={props.selectCard}>
+                    <div className={`card black ${props.status}`} onClick={props.handleCardSelection}>
                         {props.data}
                     </div>}
                     
@@ -98,8 +98,22 @@
                 setDrawn([...drawn, randomWildCard])
             }
 
-            function selectCard(cardId) {
+            function handleCardSelection(cardId) {
                 let newDrawn = [...drawn];
+
+                // checking if any card has been selected before, and that you aren't trying to unselect a card
+                for (let i = 0; i < newDrawn.length; i++) {
+                    if (newDrawn[i].status == "selected" && newDrawn[i].id != cardId) {
+                        // unselect them in advance
+                        newDrawn[i].status = "unselected"
+                        console.log(newDrawn[cardId])
+                        newDrawn[cardId].status = "unselected"
+
+                        let x = newDrawn[i];
+                        newDrawn[i] = newDrawn[cardId]
+                        newDrawn[cardId] = x;
+                    }
+                }
 
                 for (let i = 0; i < newDrawn.length; i++) {
                     if (newDrawn[i].id == cardId) {
@@ -154,7 +168,7 @@
                         {drawn.map((card, index) => (
                             <Card key={index}
                             data={card.data}
-                            selectCard={() => selectCard(card.id)}
+                            handleCardSelection={() => handleCardSelection(card.id)}
                             status={card.status}>
                             </Card>
                         ))}
