@@ -60,10 +60,17 @@
 
             function dealCards(cardsDealt) {
                 reset()
+
+
             }
 
             function shuffleCards() {
                 setDrawn([...drawn].sort(() => (Math.random() -0.5)))
+            }
+
+            function addWildCard() {
+                const randomWildCard = standardDeck[Math.floor(Math.random() * standardDeck.length)]
+                setDrawn([...drawn, randomWildCard])
             }
 
             function viewCards() {
@@ -76,7 +83,8 @@
                     <button onClick={drawRandomCard}>draw</button>
                     <button onClick={() => dealCards(5)}>dealCards</button>
                     <button onClick={reset}>reset</button>
-                    <button onClick={shuffleCards}>shufle cards</button>
+                    <button onClick={shuffleCards}>shuffle cards</button>
+                    <button onClick={addWildCard}>wild card</button>
                     <button onClick={viewCards}>View Cards</button>
                 </div>
             )
