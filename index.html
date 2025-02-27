@@ -49,6 +49,7 @@
             const[drawn, setDrawn] = React.useState([]);
             
             const[populated, setPopulated] = React.useState(false);
+            const[lastId, setLastId] = React.useState(51) // starting at 51, for the populateCards function adds 51 hard coded values
 
             function populateCards() {
                 let tempId = 0
@@ -94,8 +95,13 @@
             }
 
             function addWildCard() {
-                const randomWildCard = cards[Math.floor(Math.random() * cards.length)]
-                setDrawn([...drawn, randomWildCard])
+                let suit = Math.floor(Math.random() * 4)
+                let value = Math.floor(Math.random() * 13)
+                let newId = lastId + 1;
+
+                let card = {data: CreateCard(suit, value), id: newId, status: "unselected"}
+                setDrawn([...drawn, card])
+                setLastId(newId)
             }
 
             function handleCardSelection(cardId) {
