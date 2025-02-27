@@ -75,4 +75,10 @@
 /* Other */
 button {
     margin: 5px;
+    font-size: 16px;
+}
+
+.noCards {
+    font-size: 25px;
+    text-decoration: underline;
 }

@@ -13,10 +13,17 @@
     <div id="root"></div>
     <script type="text/babel">
 
-        // add function to let the card be selected, idk how
         function Card(props) {
+            /*
+                This function returns the Card component to display to the screen
+                The function takes in these parameters as props to use to build the component
+                data: the cards suit and value
+                status: if the card has been selected or not (clicked)
+                handleCardSelection: a function that onClick that handles all selection related updates
+            */
             return(
                 <div>
+                    {/* This section checks what colour the suit should be */}
                     {props.data.charAt(props.data.length - 1) == "♥" | props.data.charAt(props.data.length - 1) == "♦" ? 
                     <div className={`card red ${props.status}`} onClick={props.handleCardSelection}>
                         {props.data}
@@ -52,6 +59,9 @@
             const[lastId, setLastId] = React.useState(51) // starting at 51, for the populateCards function adds 51 hard coded values
 
             function populateCards() {
+                /*
+                    This function creates card objects, fills the card state with card objects
+                */
                 let tempId = 0
                 for (let i = 0; i < 4; i++) {
                     for (let j = 0; j < 13; j++) {
@@ -62,20 +72,30 @@
                 }
             }
 
+            /* This if statement calls the populateCards function if it hasn't been already */
             if (populated === false) {
                 populateCards();
                 setPopulated(true);
             }
 
             function reset() {
+                /* 
+                    This function resets the cards and drawn state
+                */
                 setCards(cards.concat(drawn))
 
                 setDrawn([])
             }
 
             function dealCards(cardsDealt, refresh) {
+                /*
+                    This function deals a number of cards determined by cardsDealt, and can take back all displayed cards first 
+                */
                 let newDeck;
                 let toBeDrawn;
+
+                // checks if the the cards displayed are being put back into the deck
+                // if so the cards are put back in the deck
                 if (refresh === true) {
                     newDeck = cards.concat(drawn);
                     toBeDrawn = []
@@ -84,6 +104,7 @@
                     toBeDrawn = [].concat(drawn);
                 }
 
+                // This loop runs through and pulls a card from the deck, and added it to temp arrays, newDeck and toBeDrawn
                 for (let i = 0; i < cardsDealt; i++) {
                     if (newDeck.length === 0) return;
 
@@ -94,15 +115,24 @@
                     newDeck.splice(randomCardIndex, 1)
                 }
 
+                // replaces the state with the new temp arrays
                 setDrawn(toBeDrawn)
                 setCards(newDeck)
             }
 
             function Regroup() {
+                /*
+                    This function randomly sorts the displayed cards, effectively shuffling them
+                */
                 setDrawn([...drawn].sort(() => (Math.random() -0.5)))
             }
 
             function addWildCard() {
+                /*
+                    This function creates a new card, not related to the current deck or drawn cards
+                    The card can be duplicated(outside of key id), meaning multiple cards with  the same suits and values
+                    The card is then added by into the drawn section
+                */
                 let suit = Math.floor(Math.random() * 4)
                 let value = Math.floor(Math.random() * 13)
                 let newId = lastId + 1;
@@ -113,6 +143,12 @@
             }
 
             function handleCardSelection(cardId) {
+                /*
+                    This function does thres things, it can one select a card by clicking
+                    This highlighs the card, and changing its status
+                    secondly, you can unselect a card by clicking on a selected card
+                    thirdly, the function can swap the position of two selected cards
+                */
                 let newDrawn = [...drawn];
                 let clickedCardIndex;
                 let switched = false;
@@ -130,6 +166,7 @@
                         // unselect the card in advance
                         newDrawn[i].status = "unselected"
 
+                        // swaps the card
                         let x = newDrawn[i];
                         newDrawn[i] = newDrawn[clickedCardIndex]
                         newDrawn[clickedCardIndex] = x;
@@ -137,6 +174,7 @@
                     }
                 }
 
+                // selects or unselects the card, if cards haven't been swapped
                 if (switched == false) {
                     if (newDrawn[clickedCardIndex].status == "unselected") {
                         newDrawn[clickedCardIndex].status = "selected"
@@ -149,6 +187,9 @@
             }
 
             function tossCard() {
+                /*
+                    This function deletes a selected a card
+                */
                 let newDrawn = [...drawn];
 
                 for (let i = 0; i < newDrawn.length; i++) {
@@ -162,7 +203,7 @@
 
             return(
                 <div>
-                    {/* This is the over turned deck of cards */}
+                    {/* This is the overturned deck of cards, its multiple cards stacked on top of eachother rotated with css */}
                     <div className = "deck" onClick={() => dealCards(1)}>
                         {cards.length > 0 ? 
                             <div className = "overturnedCardsHolder">
@@ -171,7 +212,7 @@
                                 <div className="overturnedCards">3&spades;</div>
                                 <div className="overturnedCards">4&clubs;</div>
                                 <div className="overturnedCards">5&hearts;</div>
-                            </div>: "No cards left"
+                            </div>: <p className="noCards">No Cards Left</p>
                         }
                     </div>
 
