@@ -22,7 +22,7 @@
                     The first parameter is for the suit, 0 for hearts, 1 for diamond, 2 for cube, 3 for spade
                     The second parameter is for the values, 0 for ace, and counting up too 12 for the king
                 */
-               const suit = ["&hearts", "&diams", "&spades", "&clubs"]
+               const suit = ["&hearts;", "&diams;", "&spades;", "&clubs;"]
                const value = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
                let output = value[cardNum] + suit[suitNum]
@@ -47,8 +47,10 @@
                 setDrawn([])
             }
 
-            function dealCards(cardsDealt) {
-                reset()
+            function dealCards(cardsDealt, refresh) {
+                if (refresh === true) {
+                    reset()
+                }
 
                 for (let i = 0; i < cardsDealt; i++) {
                     if (cards.length === 0) return;
@@ -78,13 +80,31 @@
 
             return(
                 <div>
-                    <button onClick={() => dealCards(1)}>draw 1 card</button>
-                    <button onClick={() => dealCards(5)}>Deal 5 cards</button>
-                    <button onClick={() => dealCards(7)}>Deal 7 cards</button>
-                    <button onClick={reset}>Reset</button>
-                    <button onClick={Regroup}>Regroup</button>
-                    <button onClick={addWildCard}>wildcard</button>
-                    <button onClick={viewCards}>View Cards</button>
+                    {/* This is the over turned deck of cards */}
+                    <div className = "deck" onClick={() => dealCards(1)}>
+                        {cards.length > 0 ? 
+                            <div className = "overturnedCardsHolder">
+                                <div className="overturnedCards">A&hearts;</div>
+                                <div className="overturnedCards">2&hearts;</div>
+                                <div className="overturnedCards">3&hearts;</div>
+                                <div className="overturnedCards">4&hearts;</div>
+                                <div className="overturnedCards">5&hearts;</div>
+                            </div>: "No cards left"
+                        }
+                    </div>
+
+                    <div className = "buttons">
+                        <button onClick={() => dealCards(5, true)}>Deal 5 cards</button>
+                        <button onClick={() => dealCards(7, true)}>Deal 7 cards</button>
+                        <button onClick={reset}>Reset</button>
+                        <button onClick={Regroup}>Regroup</button>
+                        <button onClick={addWildCard}>wildcard</button>
+                        <button onClick={viewCards}>View Cards</button>
+                    </div>
+
+                    <div className = "cards">
+
+                    </div>
                 </div>
             )
         }
