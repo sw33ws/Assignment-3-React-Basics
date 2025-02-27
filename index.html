@@ -100,7 +100,6 @@
 
             function selectCard(cardId) {
                 let newDrawn = [...drawn];
-                console.log(cardId)
 
                 for (let i = 0; i < newDrawn.length; i++) {
                     if (newDrawn[i].id == cardId) {
@@ -116,7 +115,15 @@
             }
 
             function tossCard() {
-                // ToDo
+                let newDrawn = [...drawn];
+
+                for (let i = 0; i < newDrawn.length; i++) {
+                    if (newDrawn[i].status == "selected") {
+                        newDrawn.splice(i, 1)
+                    }
+                }
+
+                setDrawn(newDrawn)
             }
 
             return(
