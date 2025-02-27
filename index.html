@@ -21,7 +21,7 @@
                     <div className="card red" onClick={props.selectCard}>
                         {props.data}
                     </div> : 
-                    <div className="card black">
+                    <div className="card black" onClick={props.selectCard}>
                         {props.data}
                     </div>}
                     
@@ -51,10 +51,12 @@
             const[populated, setPopulated] = React.useState(false);
 
             function populateCards() {
+                let tempId = 0
                 for (let i = 0; i < 4; i++) {
                     for (let j = 0; j < 13; j++) {
-                        let card = {data: CreateCard(i, j)}
+                        let card = {data: CreateCard(i, j), id: tempId}
                         setCards(cards => [...cards, card])
+                        tempId++;
                     }
                 }
             }
@@ -96,8 +98,15 @@
                 setDrawn([...drawn, randomWildCard])
             }
 
-            function selectCard() {
-                test.className += "selected"
+            function selectCard(cardId) {
+                let copyDrawn = [...drawn];
+                console.log(cardId)
+
+                for (let i = 0; i < copyDrawn.length; i++) {
+                    if (copyDrawn[i].id == cardId) {
+                        console.log("clicked")
+                    }
+                }
             }
 
             function tossCard() {
@@ -132,7 +141,7 @@
                         {drawn.map((card, index) => (
                             <Card key={index}
                             data={card.data}
-                            selectCard={selectCard}>
+                            selectCard={() => selectCard(card.id)}>
                             </Card>
                         ))}
                     </div>
