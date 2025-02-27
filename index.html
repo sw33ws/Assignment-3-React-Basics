@@ -13,10 +13,18 @@
     <div id="root"></div>
     <script type="text/babel">
 
+        // add function to let the card be selected, idk how
         function Card(props) {
             return(
                 <div>
-                    {props.data.charAt(props.data.length - 1) == "♥" | props.data.charAt(props.data.length - 1) == "♦" ? <div className="card red">{props.data}</div> : <div className="card back">{props.data}</div>}
+                    {props.data.charAt(props.data.length - 1) == "♥" | props.data.charAt(props.data.length - 1) == "♦" ? 
+                    <div className="card red" onClick={props.selectCard}>
+                        {props.data}
+                    </div> : 
+                    <div className="card black">
+                        {props.data}
+                    </div>}
+                    
                 </div>
             )
         }
@@ -88,9 +96,12 @@
                 setDrawn([...drawn, randomWildCard])
             }
 
-            function viewCards() {
-                console.log(cards);
-                console.log(drawn);
+            function selectCard() {
+                test.className += "selected"
+            }
+
+            function tossCard() {
+                // ToDo
             }
 
             return(
@@ -113,15 +124,15 @@
                         <button onClick={() => dealCards(7, true)}>Deal 7 cards</button>
                         <button onClick={reset}>Reset</button>
                         <button onClick={Regroup}>Regroup</button>
-                        <button onClick={addWildCard}>wildcard</button>
-                        <button onClick={viewCards}>View Cards</button>
-                        <button onClick={populateCards}>test</button>
+                        <button onClick={addWildCard}>Wildcard</button>
+                        <button onClick={tossCard}>Toss</button>
                     </div>
 
                     <div className = "cards">
                         {drawn.map((card, index) => (
                             <Card key={index}
-                            data={card.data}>
+                            data={card.data}
+                            selectCard={selectCard}>
                             </Card>
                         ))}
                     </div>
